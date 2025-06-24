@@ -6,7 +6,7 @@ Built using **MERN stack** with **Prisma + PostgreSQL** for robust relational da
 
 ---
 
-## 📸 Demo
+## 📸 Demo (Coming Soon...)
 
 **Live URL:** [https://devlink.io/yourusername](https://devlink.io/yourusername)  
 _(Optional – Add screenshots or a Loom video walkthrough)_
@@ -54,11 +54,14 @@ devlink/
 └── server/          # Express + Prisma backend
 ```
 
-🙌 Contributing
+## 🙌 Contributing
+
 Pull requests are welcome! For major changes, please open an issue first.
 
-📄 License
+## 📄 License
+
 MIT
 
-✨ Author
+## ✨ Author
+
 Made with ❤️ by Shlok Motwani
