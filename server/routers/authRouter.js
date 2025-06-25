@@ -2,11 +2,16 @@ const express = require("express");
 const {
   checkIfUserExists,
   createUser,
+  getUser,
 } = require("../controllers/userController.js");
-const { hashPassword } = require("../services/hashService.js");
+const {
+  hashPassword,
+  comparePasswords,
+} = require("../services/hashService.js");
 
 const authRouter = express.Router();
 
+//REGISTER
 authRouter.post("/register", async (req, res) => {
   const { fullName, username, email, password } = req.body;
 
@@ -22,7 +27,7 @@ authRouter.post("/register", async (req, res) => {
     }
 
     const hashedPassword = await hashPassword(password);
-    const user = await createUser({
+    await createUser({
       fullName,
       username,
       email,
@@ -44,10 +49,7 @@ authRouter.post("/register", async (req, res) => {
   }
 });
 
-authRouter.post("/login", (req, res) => {
-  res.send("Reached POST /login");
-});
-
+//CHECK IF USER EXISTS IN DB
 authRouter.post("/check-user", async (req, res) => {
   const { username, email } = req.body;
 
@@ -62,6 +64,37 @@ authRouter.post("/check-user", async (req, res) => {
   } catch (err) {
     console.error("Error checking user existence:", err);
     return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+//LOGIN
+authRouter.post("/login", async (req, res) => {
+  const { usernameOREmail, password } = req.body;
+
+  if (!usernameOREmail || !password) {
+    return res.status(400).json({ error: "All fields are required." });
+  }
+
+  try {
+    const user = await getUser(usernameOREmail);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    const isMatch = await comparePasswords(password, user.password);
+
+    if (!isMatch) {
+      return res.status(401).json({ error: "Invalid password." });
+    }
+
+    const userWithoutPassword = {...user};
+    delete userWithoutPassword[password];
+
+    return res.status(200).json({ verified: true, user: userWithoutPassword });
+  } catch (err) {
+    console.error("Error logging in user:", err);
+    return res.status(500).json({ error: "Internal server error during login." });
   }
 });
 

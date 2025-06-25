@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const USER_CHECK_URI = import.meta.env.VITE_USER_CHECK_URI;
@@ -13,6 +13,7 @@ export function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -40,6 +41,7 @@ export function Register() {
       setMessage("Registered successfully! 🎉");
 
       // TODO: redirect to login page here
+      navigate("/login");
     } catch (err) {
       console.error("API error:", err);
       setMessage("Something went wrong. Please try again.");

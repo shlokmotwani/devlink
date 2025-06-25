@@ -28,4 +28,22 @@ async function createUser(user) {
   }
 }
 
-module.exports = { checkIfUserExists, createUser };
+async function getUser(usernameOREmail) {
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        OR: [{ email: usernameOREmail }, { username: usernameOREmail }],
+      },
+    });
+    return user;
+  } catch (err) {
+    console.error("Error fetching user:", err);
+    throw new Error("Failed to fetch user");
+  }
+}
+
+module.exports = {
+  checkIfUserExists,
+  createUser,
+  getUser,
+};
