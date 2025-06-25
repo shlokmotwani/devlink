@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const USER_LOGIN_URI = import.meta.env.VITE_USER_LOGIN_URI;
+const LOCAL_STORAGE_TOKEN_NAME = import.meta.env.VITE_LOCAL_STORAGE_TOKEN_NAME;
 
 export function Login() {
   const [usernameOREmail, setUsernameOREmail] = useState("");
@@ -15,21 +16,22 @@ export function Login() {
     event.preventDefault();
     console.log("handleSubmit in Login Page called");
 
-    const user = {usernameOREmail, password};
+    const user = { usernameOREmail, password };
 
-    try{
+    try {
       const verifyRes = await axios.post(USER_LOGIN_URI, user);
       console.log(verifyRes);
 
-      if(!verifyRes.data.verified){
+      if (!verifyRes.data.verified) {
         console.log("User NOT verified!");
         setMessage("User NOT verified!");
         return;
       }
 
+      localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, verifyRes.data.token);
+
       navigate("/dashboard");
-    }
-    catch(err){
+    } catch (err) {
       console.error("API error:", err);
       setMessage("Something went wrong. Please try again.");
     }

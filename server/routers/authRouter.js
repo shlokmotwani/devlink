@@ -8,6 +8,7 @@ const {
   hashPassword,
   comparePasswords,
 } = require("../services/hashService.js");
+const { generateToken } = require("../services/jwt.js");
 
 const authRouter = express.Router();
 
@@ -91,7 +92,11 @@ authRouter.post("/login", async (req, res) => {
     const userWithoutPassword = {...user};
     delete userWithoutPassword[password];
 
-    return res.status(200).json({ verified: true, user: userWithoutPassword });
+    //GENERATE TOKEN
+    const token = generateToken(userWithoutPassword);
+    console.log(token);
+
+    return res.status(200).json({ verified: true, token });
   } catch (err) {
     console.error("Error logging in user:", err);
     return res.status(500).json({ error: "Internal server error during login." });
