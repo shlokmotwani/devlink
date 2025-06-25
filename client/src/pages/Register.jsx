@@ -1,13 +1,59 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
+const USER_CHECK_URI = import.meta.env.VITE_USER_CHECK_URI;
+const USER_REGISTER_URI = import.meta.env.VITE_USER_REGISTER_URI;
 
 export function Register() {
+  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [message, setMessage] = useState("");
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    console.log("Submitting form...");
+
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match.");
+      return;
+    }
+
+    const user = { fullName, username, email, password };
+
+    try {
+      const checkRes = await axios.post(USER_CHECK_URI, { username, email });
+      console.log(checkRes);
+      if (checkRes.data.exists) {
+        console.log("User already exists!");
+        setMessage("User already exists. Try logging in.");
+        return;
+      }
+
+      console.log("Registering...");
+      const registerRes = await axios.post(USER_REGISTER_URI, user);
+      console.log("Registration successful:", registerRes.data);
+      setMessage("Registered successfully! 🎉");
+
+      // TODO: redirect to login page here
+    } catch (err) {
+      console.error("API error:", err);
+      setMessage("Something went wrong. Please try again.");
+    }
+  }
+
   return (
     <div>
       <div>
         <h1>Register</h1>
+        {message && <p>{message}</p>}
       </div>
       <div>
-        <form action="" method="POST">
+        <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="fullName">Full Name</label>
             <input
@@ -15,6 +61,7 @@ export function Register() {
               id="fullName"
               name="fullName"
               placeholder="Robin Sharma"
+              onChange={(event) => setFullName(event.target.value)}
               required
             />
           </div>
@@ -25,6 +72,7 @@ export function Register() {
               id="username"
               name="username"
               placeholder="Choose a username"
+              onChange={(event) => setUsername(event.target.value)}
               required
             />
           </div>
@@ -35,6 +83,7 @@ export function Register() {
               id="email"
               name="email"
               placeholder="robinsharma@5amclub.in"
+              onChange={(event) => setEmail(event.target.value)}
               required
             />
           </div>
@@ -45,6 +94,8 @@ export function Register() {
               id="password"
               name="password"
               placeholder="Choose a strong password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
               required
             />
           </div>
@@ -55,17 +106,24 @@ export function Register() {
               id="confirmPassword"
               name="confirmPassword"
               placeholder="Re-enter password"
+              value={confirmPassword}
+              onChange={(event) => setConfirmPassword(event.target.value)}
               required
             />
           </div>
           <div>
-            <input type="submit" />
+            <input
+              type="submit"
+              value="Register"
+              disabled={!password || password !== confirmPassword}
+            />
           </div>
         </form>
-        <p>Already a user?  
-            <span>
-                <Link to="/login">Log in</Link>
-            </span>
+        <p>
+          Already a user?{" "}
+          <Link to="/login">
+            <strong>Log in</strong>
+          </Link>
         </p>
       </div>
     </div>
