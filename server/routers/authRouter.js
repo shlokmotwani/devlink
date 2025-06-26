@@ -94,7 +94,6 @@ authRouter.post("/login", async (req, res) => {
 
     //GENERATE TOKEN
     const token = generateToken(userWithoutPassword);
-    console.log(token);
 
     return res.status(200).json({ verified: true, token });
   } catch (err) {

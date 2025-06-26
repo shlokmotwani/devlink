@@ -3,6 +3,7 @@ const cors = require("cors");
 const express = require("express");
 const { authRouter } = require("./routers/authRouter.js");
 const { authenticateToken } = require("./middlewares/authenticateToken.js");
+const { getUser } = require("./controllers/userController.js");
 
 dotenv.config();
 
@@ -18,8 +19,19 @@ app.get("/", (req, res) => {
   res.send("Reached GET /");
 });
 
-app.get("/dashboard", authenticateToken, (req, res) => {
-  res.json({ message: `Hello ${req.user.username}` });
+app.get("/api/dashboard", authenticateToken, async (req, res) => {
+  try {
+    console.log(req.user);
+    const user = await getUser(req.user.email);
+    return res.json(user);
+  } catch (err) {
+    console.error("Error fetching user details:", err);
+    throw new Error("Error fetching user details. Please try again.");
+  }
+});
+
+app.get("/:username", (req, res) => {
+  res.send(`Reached ${req.params.username}'s profile`);
 });
 
 app.listen(PORT, () => {
