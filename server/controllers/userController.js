@@ -3,7 +3,6 @@ const { PrismaClient } = require("../generated/prisma");
 const prisma = new PrismaClient();
 
 async function checkIfUserExists(user) {
-  console.log("checkIfUserExists() called");
   try {
     const existingUser = await prisma.user.findFirst({
       where: {
@@ -42,8 +41,35 @@ async function getUser(usernameOREmail) {
   }
 }
 
+async function updateUser(username, data) {
+  try {
+    const updatedUser = await prisma.user.update({
+      where: {
+        username,
+      },
+      data: {
+        bio: data.bio || "",
+        avatarUrl: data.avatarUrl || "",
+        resumeUrl: data.resumeUrl || "",
+        socialLinks: data.socialLinks || {},
+        skills: {
+          set: data.skills || [],
+        },
+        projects: {
+          set: data.projects || [],
+        },
+      },
+    });
+    return updatedUser;
+  } catch (err) {
+    console.error("Error updating user:", err);
+    throw new Error("Failed to update user");
+  }
+}
+
 module.exports = {
   checkIfUserExists,
   createUser,
   getUser,
+  updateUser,
 };

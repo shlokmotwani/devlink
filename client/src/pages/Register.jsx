@@ -17,7 +17,7 @@ export function Register() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log("Submitting form...");
+    
 
     if (password !== confirmPassword) {
       setMessage("Passwords do not match.");
@@ -30,12 +30,11 @@ export function Register() {
       const checkRes = await axios.post(USER_CHECK_URI, { username, email });
       console.log(checkRes);
       if (checkRes.data.exists) {
-        console.log("User already exists!");
         setMessage("User already exists. Try logging in.");
         return;
       }
 
-      console.log("Registering...");
+    
       const registerRes = await axios.post(USER_REGISTER_URI, user);
       console.log("Registration successful:", registerRes.data);
       setMessage("Registered successfully! 🎉");

@@ -1,20 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { PersonalDetails } from "../components/PersonalDetails";
+
+const USER_DASHBOARD_URI = import.meta.env.VITE_USER_DASHBOARD_URI;
+const LOCAL_STORAGE_TOKEN_NAME = import.meta.env.VITE_LOCAL_STORAGE_TOKEN_NAME;
+const USER_BASE_URI = import.meta.env.VITE_USER_BASE_URI;
 
 export function Dashboard() {
-  const [name, setName] = useState("");
-  const [error, setError] = useState("");
+  const [user, setUser] = useState(null);
+  const [bio, setBio] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [resumeUrl, setResumeUrl] = useState("");
+  const [socialLinks, setSocialLinks] = useState({});
+  const [skills, setSkills] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     async function fetchUserData() {
-      const token = localStorage.getItem(
-        import.meta.env.VITE_LOCAL_STORAGE_TOKEN_NAME
-      );
-
-      const USER_DASHBOARD_URI = import.meta.env.VITE_USER_DASHBOARD_URI;
+      const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
 
       if (!token) {
-        setError("No token found. Please login.");
+        setMessage("No token found. Please login.");
         return;
       }
 
@@ -24,19 +32,96 @@ export function Dashboard() {
             Authorization: `Bearer ${token}`,
           },
         });
-        setName(res.data.fullName); 
+        const data = res.data;
+        setUser(data);
+        setBio(data.bio || "");
+        setAvatarUrl(data.avatarUrl || "");
+        setResumeUrl(data.resumeUrl || "");
+        setSocialLinks(data.socialLinks || {});
+        setSkills(data.skills || []);
+        setProjects(data.projects || []);
       } catch (err) {
         console.error("Dashboard fetch error:", err);
-        setError(err.response?.data?.error || "Failed to fetch dashboard data");
+        setMessage(
+          err.response?.data?.error || "Failed to fetch dashboard data"
+        );
       }
     }
     fetchUserData();
   }, []);
 
+  async function handleSave() {
+    const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
+
+    if (!token) {
+      setMessage("No token found. Please login.");
+      return;
+    }
+
+    try {
+      await axios.put(
+        `${USER_BASE_URI}/${user.username}`,
+        {
+          data: {
+            bio,
+            avatarUrl,
+            resumeUrl,
+            socialLinks,
+            skills,
+            projects,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setEditMode(false);
+      setMessage("Profile updated successfully!");
+    } catch (err) {
+      setMessage("Failed to update profile.");
+      console.error(err);
+    }
+  }
+
   return (
     <div>
       <h1>Dashboard</h1>
-      {error ? <p style={{ color: "red" }}>{error}</p> : <p>{name}</p>}
+      {message && <p>{message}</p>}
+
+      {user ? (
+        <>
+          <PersonalDetails
+            fullName={user.fullName}
+            email={user.email}
+            bio={bio}
+            setBio={setBio}
+            editMode={editMode}
+          />
+
+          <div style={{ marginTop: "1rem" }}>
+            {!editMode ? (
+              <button onClick={() => setEditMode(true)}>Edit</button>
+            ) : (
+              <>
+                <button onClick={handleSave}>Save All</button>
+                <button
+                  onClick={() => {
+                    setEditMode(false);
+                    setMessage("Edits discarded");
+                  }}
+                >
+                  Cancel
+                </button>
+              </>
+            )}
+          </div>
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }
