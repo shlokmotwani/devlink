@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { PersonalDetails } from "../components/PersonalDetails";
+import { SocialLinks } from "../components/SocialLinks";
 
 const USER_DASHBOARD_URI = import.meta.env.VITE_USER_DASHBOARD_URI;
 const LOCAL_STORAGE_TOKEN_NAME = import.meta.env.VITE_LOCAL_STORAGE_TOKEN_NAME;
@@ -8,6 +9,7 @@ const USER_BASE_URI = import.meta.env.VITE_USER_BASE_URI;
 
 export function Dashboard() {
   const [user, setUser] = useState(null);
+
   const [bio, setBio] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [resumeUrl, setResumeUrl] = useState("");
@@ -34,6 +36,7 @@ export function Dashboard() {
         });
         const data = res.data;
         setUser(data);
+
         setBio(data.bio || "");
         setAvatarUrl(data.avatarUrl || "");
         setResumeUrl(data.resumeUrl || "");
@@ -98,6 +101,13 @@ export function Dashboard() {
             email={user.email}
             bio={bio}
             setBio={setBio}
+            editMode={editMode}
+          />
+
+          <SocialLinks
+            socialLinks={socialLinks}
+            setSocialLinks={setSocialLinks}
+            handleSave={handleSave}
             editMode={editMode}
           />
 

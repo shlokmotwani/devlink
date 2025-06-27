@@ -5,15 +5,15 @@ export function PersonalDetails({ fullName, email, bio, setBio, editMode }) {
         <h1>Personal Details</h1>
       </div>
       <div>
-        <label htmlFor="fullName">Full Name</label>
+        <label>Full Name</label>
         <input type="text" value={fullName} disabled />
       </div>
       <div>
-        <label htmlFor="email">Email</label>
+        <label>Email</label>
         <input type="email" value={email} disabled />
       </div>
       <div>
-        <label htmlFor="bio">Bio</label>
+        <label>Bio</label>
         <input
           type="text"
           value={bio}
@@ -21,7 +21,6 @@ export function PersonalDetails({ fullName, email, bio, setBio, editMode }) {
             setBio(event.target.value);
           }}
           disabled={!editMode}
-          required
         />
       </div>
     </div>
