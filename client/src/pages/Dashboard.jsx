@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { PersonalDetails } from "../components/PersonalDetails";
 import { SocialLinks } from "../components/SocialLinks";
+import { Skills } from "../components/Skills";
 
 const USER_DASHBOARD_URI = import.meta.env.VITE_USER_DASHBOARD_URI;
 const LOCAL_STORAGE_TOKEN_NAME = import.meta.env.VITE_LOCAL_STORAGE_TOKEN_NAME;
@@ -65,14 +66,12 @@ export function Dashboard() {
       await axios.put(
         `${USER_BASE_URI}/${user.username}`,
         {
-          data: {
-            bio,
-            avatarUrl,
-            resumeUrl,
-            socialLinks,
-            skills,
-            projects,
-          },
+          bio,
+          avatarUrl,
+          resumeUrl,
+          socialLinks,
+          skills,
+          projects,
         },
         {
           headers: {
@@ -110,6 +109,8 @@ export function Dashboard() {
             handleSave={handleSave}
             editMode={editMode}
           />
+
+          <Skills skills={skills} setSkills={setSkills} editMode={editMode} />
 
           <div style={{ marginTop: "1rem" }}>
             {!editMode ? (
