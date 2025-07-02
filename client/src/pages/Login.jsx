@@ -14,13 +14,11 @@ export function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log("handleSubmit in Login Page called");
 
     const user = { usernameOREmail, password };
 
     try {
       const verifyRes = await axios.post(USER_LOGIN_URI, user);
-      console.log(verifyRes);
 
       if (!verifyRes.data.verified) {
         console.log("User NOT verified!");

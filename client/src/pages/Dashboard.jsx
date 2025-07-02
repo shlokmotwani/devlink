@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { PersonalDetails } from "../components/PersonalDetails";
 import { SocialLinks } from "../components/SocialLinks";
 import { Skills } from "../components/Skills";
+import { Projects } from "../components/Projects";
 
 const USER_DASHBOARD_URI = import.meta.env.VITE_USER_DASHBOARD_URI;
 const LOCAL_STORAGE_TOKEN_NAME = import.meta.env.VITE_LOCAL_STORAGE_TOKEN_NAME;
@@ -111,6 +112,12 @@ export function Dashboard() {
           />
 
           <Skills skills={skills} setSkills={setSkills} editMode={editMode} />
+
+          <Projects
+            projects={projects}
+            setProjects={setProjects}
+            editMode={editMode}
+          />
 
           <div style={{ marginTop: "1rem" }}>
             {!editMode ? (

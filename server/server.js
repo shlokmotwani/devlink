@@ -5,10 +5,11 @@ const { authRouter } = require("./routers/authRouter.js");
 const { authenticateToken } = require("./middlewares/authenticateToken.js");
 const { getUser } = require("./controllers/userController.js");
 const { userRouter } = require("./routers/userRouter.js");
+const { getProjects } = require("./controllers/projectController.js");
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 const app = express();
 
 app.use(cors());
@@ -25,6 +26,8 @@ app.get("/", (req, res) => {
 app.get("/api/dashboard", authenticateToken, async (req, res) => {
   try {
     const user = await getUser(req.user.email);
+    const userProjects = await getProjects(user.id);
+    user.projects = userProjects;
     return res.json(user);
   } catch (err) {
     console.error("Error fetching user details:", err);

@@ -9,7 +9,6 @@ async function checkIfUserExists(user) {
         OR: [{ username: user.username }, { email: user.email }],
       },
     });
-    console.log(existingUser);
     return existingUser !== null;
   } catch (err) {
     console.error("Error checking user existence:", err);
@@ -43,6 +42,7 @@ async function getUser(usernameOREmail) {
 
 async function updateUser(username, data) {
   try {
+    console.log(data);
     const updatedUser = await prisma.user.update({
       where: {
         username,
@@ -56,7 +56,15 @@ async function updateUser(username, data) {
           set: data.skills || [],
         },
         projects: {
-          set: data.projects || [],
+          deleteMany: {}, // delete all existing projects
+          create: data.projects.map((p) => ({
+            title: p.title,
+            description: p.description,
+            techStack: p.techStack,
+            imageUrl: p.imageUrl,
+            liveUrl: p.liveUrl,
+            githubUrl: p.githubUrl,
+          })),
         },
       },
     });

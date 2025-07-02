@@ -28,7 +28,6 @@ export function Register() {
 
     try {
       const checkRes = await axios.post(USER_CHECK_URI, { username, email });
-      console.log(checkRes);
       if (checkRes.data.exists) {
         setMessage("User already exists. Try logging in.");
         return;
