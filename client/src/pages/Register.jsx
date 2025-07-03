@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/style.css";
+import "../styles/components/form.css";
 
 const USER_CHECK_URI = import.meta.env.VITE_USER_CHECK_URI;
 const USER_REGISTER_URI = import.meta.env.VITE_USER_REGISTER_URI;
+const LOCAL_STORAGE_TOKEN_NAME = import.meta.env.VITE_LOCAL_STORAGE_TOKEN_NAME;
 
 export function Register() {
   const [fullName, setFullName] = useState("");
@@ -15,6 +17,13 @@ export function Register() {
 
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   async function handleSubmit(event) {
     event.preventDefault();

@@ -4,6 +4,11 @@ import { PersonalDetails } from "../components/PersonalDetails";
 import { SocialLinks } from "../components/SocialLinks";
 import { Skills } from "../components/Skills";
 import { Projects } from "../components/Projects";
+import { useNavigate } from "react-router-dom";
+
+import "../styles/components/logout-modal.css";
+import "../styles/components/view-only-banner.css";
+import "../styles/components/toast.css";
 
 const USER_DASHBOARD_URI = import.meta.env.VITE_USER_DASHBOARD_URI;
 const LOCAL_STORAGE_TOKEN_NAME = import.meta.env.VITE_LOCAL_STORAGE_TOKEN_NAME;
@@ -18,8 +23,11 @@ export function Dashboard() {
   const [socialLinks, setSocialLinks] = useState({});
   const [skills, setSkills] = useState([]);
   const [projects, setProjects] = useState([]);
+
   const [editMode, setEditMode] = useState(false);
   const [toast, setToast] = useState(null);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -27,6 +35,7 @@ export function Dashboard() {
 
       if (!token) {
         showToast("No token found. Please login.");
+        navigate("/login");
         return;
       }
 
@@ -54,6 +63,15 @@ export function Dashboard() {
     }
     fetchUserData();
   }, []);
+
+  function confirmLogout() {
+    setShowLogoutModal(true);
+  }
+
+  function handleLogOut() {
+    localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME);
+    navigate("/login");
+  }
 
   async function handleSave() {
     const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
@@ -97,6 +115,9 @@ export function Dashboard() {
   return (
     <div className="dashboard-container">
       <h1>Dashboard</h1>
+      <button className="logout-button" onClick={confirmLogout}>
+        🚪 Log Out
+      </button>
 
       {user ? (
         <>
@@ -165,6 +186,26 @@ export function Dashboard() {
         <p>Loading...</p>
       )}
       {toast && <div className="toast">{toast}</div>}
+
+      {showLogoutModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Confirm Logout</h3>
+            <p>Are you sure you want to log out?</p>
+            <div className="modal-actions">
+              <button className="confirm" onClick={handleLogOut}>
+                Yes, Log Out
+              </button>
+              <button
+                className="cancel"
+                onClick={() => setShowLogoutModal(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

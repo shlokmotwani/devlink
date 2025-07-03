@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../styles/components/user-profile.css";
+import "../styles/components/toast.css";
 
 const USER_BASE_URI = import.meta.env.VITE_USER_BASE_URI;
 const USER_PROJECTS_BASE_URI = import.meta.env.VITE_USER_PROJECTS_BASE_URI;

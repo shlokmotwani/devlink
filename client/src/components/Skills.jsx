@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/components/skills.css"
 
 export function Skills({ skills, setSkills, editMode }) {
   const [addMode, setAddMode] = useState(false);

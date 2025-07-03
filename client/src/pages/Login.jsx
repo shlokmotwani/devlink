@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/style.css";
+import "../styles/components/form.css";
 
 const USER_LOGIN_URI = import.meta.env.VITE_USER_LOGIN_URI;
 const LOCAL_STORAGE_TOKEN_NAME = import.meta.env.VITE_LOCAL_STORAGE_TOKEN_NAME;
@@ -12,6 +12,13 @@ export function Login() {
 
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -32,7 +39,7 @@ export function Login() {
       navigate("/dashboard");
     } catch (err) {
       console.error("API error:", err);
-      setMessage("Something went wrong. Please try again.");
+      setMessage(err.response.data.error);
     }
   }
 

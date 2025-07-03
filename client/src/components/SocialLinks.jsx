@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/components/social-link.css"
 
 export function SocialLinks({ socialLinks, setSocialLinks, editMode }) {
   const [addMode, setAddMode] = useState(false);
