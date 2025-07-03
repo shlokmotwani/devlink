@@ -19,14 +19,14 @@ export function Dashboard() {
   const [skills, setSkills] = useState([]);
   const [projects, setProjects] = useState([]);
   const [editMode, setEditMode] = useState(false);
-  const [message, setMessage] = useState("");
+  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     async function fetchUserData() {
       const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
 
       if (!token) {
-        setMessage("No token found. Please login.");
+        showToast("No token found. Please login.");
         return;
       }
 
@@ -47,7 +47,7 @@ export function Dashboard() {
         setProjects(data.projects || []);
       } catch (err) {
         console.error("Dashboard fetch error:", err);
-        setMessage(
+        showToast(
           err.response?.data?.error || "Failed to fetch dashboard data"
         );
       }
@@ -59,7 +59,7 @@ export function Dashboard() {
     const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
 
     if (!token) {
-      setMessage("No token found. Please login.");
+      showToast("No token found. Please login.");
       return;
     }
 
@@ -82,17 +82,21 @@ export function Dashboard() {
       );
 
       setEditMode(false);
-      setMessage("Profile updated successfully!");
+      showToast("Profile updated successfully!");
     } catch (err) {
-      setMessage("Failed to update profile.");
+      showToast("❌ Failed to update profile");
       console.error(err);
     }
+  }
+
+  function showToast(message) {
+    setToast(message);
+    setTimeout(() => setToast(null), 3000); // Toast disappears in 3s
   }
 
   return (
     <div className="dashboard-container">
       <h1>Dashboard</h1>
-      {message && <p>{message}</p>}
 
       {user ? (
         <>
@@ -148,7 +152,7 @@ export function Dashboard() {
                 <button
                   onClick={() => {
                     setEditMode(false);
-                    setMessage("Edits discarded");
+                    showToast("❌ Edits discarded");
                   }}
                 >
                   Cancel
@@ -160,6 +164,7 @@ export function Dashboard() {
       ) : (
         <p>Loading...</p>
       )}
+      {toast && <div className="toast">{toast}</div>}
     </div>
   );
 }
