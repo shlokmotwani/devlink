@@ -45,6 +45,7 @@ export function UserProfile() {
   return (
     <div className="user-profile">
       <div className="section">
+        {toast && <div className="toast">{toast}</div>}
         <h1 className="section-header">{user.fullName}'s Profile</h1>
         <div className="section-content">
           <div className="profile-field">
@@ -74,7 +75,11 @@ export function UserProfile() {
                 Object.entries(user.socialLinks).map(([platform, url], i) => (
                   <li key={i}>
                     <strong>{platform}</strong>:{" "}
-                    <a href={url} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={url.startsWith("http") ? url : `https://${url}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {url}
                     </a>
                   </li>
@@ -83,43 +88,47 @@ export function UserProfile() {
           </div>
           <div className="profile-field">
             <label>Projects</label>
-            <div className="project-grid">
-              {user.projects?.map((project, i) => (
-                <div key={i} className="project-card">
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <p>
-                    <strong>Tech:</strong> {project.techStack?.join(", ")}
-                  </p>
-                  {project.liveUrl && (
-                    <a
-                      href={
-                        project.liveUrl.startsWith("http")
-                          ? project.liveUrl
-                          : `https://${project.liveUrl}`
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Live
-                    </a>
-                  )}{" "}
-                  {project.githubUrl && (
-                    <a
-                      href={
-                        project.githubUrl.startsWith("http")
-                          ? project.githubUrl
-                          : `https://${project.githubUrl}`
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      GitHub
-                    </a>
-                  )}
-                </div>
-              ))}
-            </div>
+            {user.projects?.length > 0 ? (
+              <div className="project-grid">
+                {user.projects?.map((project, i) => (
+                  <div key={i} className="project-card">
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                    <p>
+                      <strong>Tech:</strong> {project.techStack?.join(", ")}
+                    </p>
+                    {project.liveUrl && (
+                      <a
+                        href={
+                          project.liveUrl.startsWith("http")
+                            ? project.liveUrl
+                            : `https://${project.liveUrl}`
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Live
+                      </a>
+                    )}{" "}
+                    {project.githubUrl && (
+                      <a
+                        href={
+                          project.githubUrl.startsWith("http")
+                            ? project.githubUrl
+                            : `https://${project.githubUrl}`
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        GitHub
+                      </a>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p>No projects found.</p>
+            )}
           </div>
         </div>
       </div>
