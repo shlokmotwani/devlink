@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../style/style.css";
 
 const USER_CHECK_URI = import.meta.env.VITE_USER_CHECK_URI;
 const USER_REGISTER_URI = import.meta.env.VITE_USER_REGISTER_URI;
@@ -17,7 +18,6 @@ export function Register() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    
 
     if (password !== confirmPassword) {
       setMessage("Passwords do not match.");
@@ -33,7 +33,6 @@ export function Register() {
         return;
       }
 
-    
       const registerRes = await axios.post(USER_REGISTER_URI, user);
       console.log("Registration successful:", registerRes.data);
       setMessage("Registered successfully! 🎉");
@@ -47,8 +46,8 @@ export function Register() {
   }
 
   return (
-    <div>
-      <div>
+    <div className="form-container register">
+      <div className="form-header">
         <h1>Register</h1>
         {message && <p>{message}</p>}
       </div>
@@ -119,7 +118,7 @@ export function Register() {
             />
           </div>
         </form>
-        <p>
+        <p className="form-footer">
           Already a user?{" "}
           <Link to="/login">
             <strong>Log in</strong>

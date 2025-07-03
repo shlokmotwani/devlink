@@ -18,13 +18,13 @@ export function Skills({ skills, setSkills, editMode }) {
   }
 
   return (
-    <div>
-      <div>
-        <h1>Skills</h1>
+    <div className="section-content">
+      <div className="section-header">
+        <h2>Skills</h2>
       </div>
 
       {skills.map((skillItem, index) => (
-        <div key={index}>
+        <div className="form-group skill-item" key={index}>
           <label>Skill {index + 1}</label>
           <input
             type="text"
@@ -37,27 +37,38 @@ export function Skills({ skills, setSkills, editMode }) {
             disabled={!editMode}
           />
           {editMode && (
-            <button onClick={() => handleDeleteSkill(skillItem)}>Delete</button>
+            <button
+              className="delete-btn"
+              onClick={() => handleDeleteSkill(skillItem)}
+            >
+              Delete
+            </button>
           )}
         </div>
       ))}
 
       {editMode && (
         <>
-          <button hidden={addMode} onClick={() => setAddMode(true)}>
+          <button
+            className="add-btn"
+            hidden={addMode}
+            onClick={() => setAddMode(true)}
+          >
             Add Skill
           </button>
 
           {addMode && (
-            <div>
+            <div className="add-skill-form">
               <input
                 type="text"
                 value={skill}
                 placeholder="Enter skill"
                 onChange={(event) => setSkill(event.target.value)}
               />
-              <button onClick={handleAddSkill}>Save</button>
-              <button onClick={() => setAddMode(false)}>Cancel</button>
+              <div className="add-actions">
+                <button onClick={handleAddSkill}>Save</button>
+                <button onClick={() => setAddMode(false)}>Cancel</button>
+              </div>
             </div>
           )}
         </>

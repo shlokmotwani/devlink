@@ -90,36 +90,50 @@ export function Dashboard() {
   }
 
   return (
-    <div>
+    <div className="dashboard-container">
       <h1>Dashboard</h1>
       {message && <p>{message}</p>}
 
       {user ? (
         <>
-          <PersonalDetails
-            fullName={user.fullName}
-            email={user.email}
-            bio={bio}
-            setBio={setBio}
-            editMode={editMode}
-          />
+          <div className="dashboard-grid">
+            <div className="dashboard-section">
+              <PersonalDetails
+                fullName={user.fullName}
+                email={user.email}
+                bio={bio}
+                setBio={setBio}
+                editMode={editMode}
+              />
+            </div>
 
-          <SocialLinks
-            socialLinks={socialLinks}
-            setSocialLinks={setSocialLinks}
-            handleSave={handleSave}
-            editMode={editMode}
-          />
+            <div className="dashboard-section">
+              <SocialLinks
+                socialLinks={socialLinks}
+                setSocialLinks={setSocialLinks}
+                handleSave={handleSave}
+                editMode={editMode}
+              />
+            </div>
 
-          <Skills skills={skills} setSkills={setSkills} editMode={editMode} />
+            <div className="dashboard-section">
+              <Skills
+                skills={skills}
+                setSkills={setSkills}
+                editMode={editMode}
+              />
+            </div>
 
-          <Projects
-            projects={projects}
-            setProjects={setProjects}
-            editMode={editMode}
-          />
+            <div className="dashboard-section">
+              <Projects
+                projects={projects}
+                setProjects={setProjects}
+                editMode={editMode}
+              />
+            </div>
+          </div>
 
-          <div style={{ marginTop: "1rem" }}>
+          <div className="dashboard-buttons">
             {!editMode ? (
               <button onClick={() => setEditMode(true)}>Edit</button>
             ) : (

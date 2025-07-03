@@ -10,6 +10,8 @@ export function Projects({ projects, setProjects, editMode }) {
   const [liveUrl, setLiveUrl] = useState("");
   const [githubUrl, setGithubUrl] = useState("");
 
+  const [selectedProjectIndex, setSelectedProjectIndex] = useState(null);
+
   function handleAddProject() {
     if (!title.trim()) return;
     const newProject = {
@@ -48,104 +50,131 @@ export function Projects({ projects, setProjects, editMode }) {
     setProjects(updatedProjects);
   }
 
+  function renderProjectFields(index) {
+    const project = projects[index];
+
+    return (
+      <>
+        <label>Title</label>
+        <input
+          type="text"
+          value={project.title}
+          onChange={(e) =>
+            handleUpdateProjectField(index, "title", e.target.value)
+          }
+          disabled={!editMode}
+        />
+
+        <label>Description</label>
+        <input
+          type="text"
+          value={project.description}
+          onChange={(e) =>
+            handleUpdateProjectField(index, "description", e.target.value)
+          }
+          disabled={!editMode}
+        />
+
+        <label>Tech Stack</label>
+        <input
+          type="text"
+          value={project.techStack?.join(", ") || ""}
+          onChange={(e) =>
+            handleUpdateProjectField(index, "techStack", e.target.value)
+          }
+          disabled={!editMode}
+        />
+
+        <label>Image URL</label>
+        <input
+          type="text"
+          value={project.imageUrl}
+          onChange={(e) =>
+            handleUpdateProjectField(index, "imageUrl", e.target.value)
+          }
+          disabled={!editMode}
+        />
+
+        <label>Live URL</label>
+        <input
+          type="text"
+          value={project.liveUrl}
+          onChange={(e) =>
+            handleUpdateProjectField(index, "liveUrl", e.target.value)
+          }
+          disabled={!editMode}
+        />
+
+        <label>GitHub URL</label>
+        <input
+          type="text"
+          value={project.githubUrl}
+          onChange={(e) =>
+            handleUpdateProjectField(index, "githubUrl", e.target.value)
+          }
+          disabled={!editMode}
+        />
+
+        {editMode && (
+          <button
+            className="delete-btn"
+            onClick={() => {
+              handleDeleteProject(index);
+              setSelectedProjectIndex(null);
+            }}
+          >
+            Delete Project
+          </button>
+        )}
+      </>
+    );
+  }
+
   return (
-    <div>
-      <h2>Projects</h2>
-        <p>Projects Count : {projects.length}</p>
-      {projects.map((project, index) => (
+    <div className="section-content">
+      <div className="section-header">
+        <h2>Projects</h2>
+        <p>Projects Count: {projects.length}</p>
+      </div>
+
+      {/* Project Grid */}
+      <div className="project-grid">
+        {projects.map((project, index) => (
+          <div
+            key={index}
+            className="project-card"
+            onClick={() => setSelectedProjectIndex(index)}
+          >
+            <h3>{project.title}</h3>
+            <p>{project.description?.slice(0, 80)}...</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Modal */}
+      {selectedProjectIndex !== null && (
         <div
-          key={index}
-          style={{
-            borderBottom: "1px solid #ccc",
-            marginBottom: "1rem",
-            paddingBottom: "1rem",
-          }}
+          className="modal-overlay"
+          onClick={() => setSelectedProjectIndex(null)}
         >
-          <label>Title</label>
-          <input
-            type="text"
-            value={project.title}
-            onChange={(e) =>
-              handleUpdateProjectField(index, "title", e.target.value)
-            }
-            disabled={!editMode}
-          />
-          <br />
-
-          <label>Description</label>
-          <input
-            type="text"
-            value={project.description}
-            onChange={(e) =>
-              handleUpdateProjectField(index, "description", e.target.value)
-            }
-            disabled={!editMode}
-          />
-          <br />
-
-          <label>Tech Stack (comma-separated)</label>
-          <input
-            type="text"
-            value={project.techStack?.join(", ") || ""}
-            onChange={(e) =>
-              handleUpdateProjectField(index, "techStack", e.target.value)
-            }
-            disabled={!editMode}
-          />
-          <br />
-
-          <label>Image URL</label>
-          <input
-            type="text"
-            value={project.imageUrl || ""}
-            onChange={(e) =>
-              handleUpdateProjectField(index, "imageUrl", e.target.value)
-            }
-            disabled={!editMode}
-          />
-          <br />
-
-          <label>Live URL</label>
-          <input
-            type="text"
-            value={project.liveUrl || ""}
-            onChange={(e) =>
-              handleUpdateProjectField(index, "liveUrl", e.target.value)
-            }
-            disabled={!editMode}
-          />
-          <br />
-
-          <label>GitHub URL</label>
-          <input
-            type="text"
-            value={project.githubUrl || ""}
-            onChange={(e) =>
-              handleUpdateProjectField(index, "githubUrl", e.target.value)
-            }
-            disabled={!editMode}
-          />
-          <br />
-
-          {editMode && (
-            <button
-              onClick={() => handleDeleteProject(index)}
-              style={{ marginTop: "0.5rem" }}
-            >
-              Delete
-            </button>
-          )}
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>Project Details</h2>
+            {renderProjectFields(selectedProjectIndex)}
+            <button onClick={() => setSelectedProjectIndex(null)}>Close</button>
+          </div>
         </div>
-      ))}
+      )}
 
+      {/* Add New Project Form */}
       {editMode && (
         <>
           {!addMode && (
-            <button onClick={() => setAddMode(true)}>Add Project</button>
+            <button className="add-btn" onClick={() => setAddMode(true)}>
+              Add Project
+            </button>
           )}
-
           {addMode && (
-            <div style={{ marginTop: "1rem" }}>
+            <div className="add-skill-form">
               <h4>New Project</h4>
               <input
                 type="text"
@@ -183,7 +212,7 @@ export function Projects({ projects, setProjects, editMode }) {
                 value={githubUrl}
                 onChange={(e) => setGithubUrl(e.target.value)}
               />
-              <div>
+              <div className="add-actions">
                 <button onClick={handleAddProject}>Save</button>
                 <button onClick={() => setAddMode(false)}>Cancel</button>
               </div>

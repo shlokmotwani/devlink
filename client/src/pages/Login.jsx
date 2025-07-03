@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../style/style.css";
 
 const USER_LOGIN_URI = import.meta.env.VITE_USER_LOGIN_URI;
 const LOCAL_STORAGE_TOKEN_NAME = import.meta.env.VITE_LOCAL_STORAGE_TOKEN_NAME;
@@ -36,8 +37,8 @@ export function Login() {
   }
 
   return (
-    <div>
-      <div>
+    <div className="form-container">
+      <div className="form-header">
         <h1>Log In</h1>
         {message && <p>{message}</p>}
       </div>
@@ -75,7 +76,7 @@ export function Login() {
             />
           </div>
         </form>
-        <p>
+        <p className="form-footer">
           New user?
           <span>
             <Link to="/register">Register</Link>
