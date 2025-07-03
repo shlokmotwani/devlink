@@ -96,11 +96,17 @@ export function Dashboard() {
 
       {user ? (
         <>
+          {!editMode && (
+            <div className="view-only-banner">
+              🔒 You are in view-only mode. Click "Edit" to make changes.
+            </div>
+          )}
           <div className="dashboard-grid">
             <div className="dashboard-section">
               <PersonalDetails
                 fullName={user.fullName}
                 email={user.email}
+                username={user.username}
                 bio={bio}
                 setBio={setBio}
                 editMode={editMode}

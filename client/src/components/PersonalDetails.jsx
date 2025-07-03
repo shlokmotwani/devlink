@@ -1,4 +1,11 @@
-export function PersonalDetails({ fullName, email, bio, setBio, editMode }) {
+export function PersonalDetails({
+  fullName,
+  email,
+  username,
+  bio,
+  setBio,
+  editMode,
+}) {
   return (
     <div className="section-content">
       <div className="section-header">
@@ -13,6 +20,11 @@ export function PersonalDetails({ fullName, email, bio, setBio, editMode }) {
       <div className="form-group">
         <label>Email</label>
         <input type="email" value={email} disabled />
+      </div>
+
+      <div className="form-group">
+        <label>Username</label>
+        <input type="text" value={username} disabled />
       </div>
 
       <div className="form-group">
