@@ -134,7 +134,6 @@ export function Projects({ projects, setProjects, editMode }) {
     <div className="section-content">
       <div className="section-header">
         <h2>Projects</h2>
-        <p>Projects Count: {projects.length}</p>
       </div>
 
       {/* Project Grid */}
