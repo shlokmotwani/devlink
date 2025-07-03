@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../style/style.css";
+import "../styles/style.css";
 
 const USER_CHECK_URI = import.meta.env.VITE_USER_CHECK_URI;
 const USER_REGISTER_URI = import.meta.env.VITE_USER_REGISTER_URI;

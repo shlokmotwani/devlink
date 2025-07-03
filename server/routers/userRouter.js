@@ -1,5 +1,6 @@
 const express = require("express");
 const { updateUser, getUser } = require("../controllers/userController");
+const { authenticateToken } = require("../middlewares/authenticateToken");
 const userRouter = express.Router();
 
 userRouter.get("/:username", async (req, res) => {
@@ -17,7 +18,7 @@ userRouter.get("/:username", async (req, res) => {
   }
 });
 
-userRouter.put("/:username", async (req, res) => {
+userRouter.put("/:username", authenticateToken, async (req, res) => {
   const data = req.body;
   try {
     const updatedUser = await updateUser(req.user.username, data);

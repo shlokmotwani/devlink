@@ -13,9 +13,6 @@ export function generateToken(user) {
       username: user.username,
       email: user.email,
     };
-    if (user.fullName === "guest") {
-      return jwt.sign(payload, SECRET_KEY);
-    }
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: EXPIRES_IN });
     return token;
   } catch (err) {

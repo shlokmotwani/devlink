@@ -6,6 +6,7 @@ const { authenticateToken } = require("./middlewares/authenticateToken.js");
 const { getUser } = require("./controllers/userController.js");
 const { userRouter } = require("./routers/userRouter.js");
 const { getProjects } = require("./controllers/projectController.js");
+const { projectRouter } = require("./routers/projectRouter.js");
 
 dotenv.config();
 
@@ -17,7 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRouter);
-app.use("/api/users", authenticateToken, userRouter);
+app.use("/api/users", userRouter);
+app.use("/api/projects", projectRouter);
 
 app.get("/", (req, res) => {
   res.send("Reached GET /");
@@ -33,10 +35,6 @@ app.get("/api/dashboard", authenticateToken, async (req, res) => {
     console.error("Error fetching user details:", err);
     throw new Error("Error fetching user details. Please try again.");
   }
-});
-
-app.get("/:username", (req, res) => {
-  res.send(`Reached ${req.params.username}'s profile`);
 });
 
 app.listen(PORT, () => {

@@ -13,14 +13,19 @@ _(Optional – Add screenshots or a Loom video walkthrough)_
 
 ---
 
-## 📚 Upcoming Features
+## 📚 Features
 
 - 🔐 Authentication (JWT)
 - 🧑‍💻 Public Portfolio Page (`/username`)
 - 🛠️ Project Management (CRUD)
-- 💼 Resume Upload (PDF)
 - 🧩 Skills & Tech Stack
 - 🌐 Social Links (GitHub, LinkedIn, etc.)
+
+---
+
+## 📚 Upcoming Features
+
+- 💼 Resume Upload (PDF)
 - 🎨 Theme Toggle (Light/Dark)
 - ☁️ Cloudinary Image Upload
 - 📈 View Analytics & QR Code Generator
