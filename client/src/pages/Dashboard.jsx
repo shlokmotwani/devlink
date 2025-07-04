@@ -28,6 +28,7 @@ export function Dashboard() {
   const [editMode, setEditMode] = useState(false);
   const [toast, setToast] = useState(null);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -84,6 +85,8 @@ export function Dashboard() {
       return;
     }
 
+    setLoading(true); // Start spinner
+
     try {
       await axios.put(
         `${USER_BASE_URI}/${user.username}`,
@@ -107,6 +110,8 @@ export function Dashboard() {
     } catch (err) {
       showToast("❌ Failed to update profile");
       console.error(err);
+    } finally {
+      setLoading(false); // Stop spinner
     }
   }
 
@@ -172,7 +177,13 @@ export function Dashboard() {
               <button onClick={() => setEditMode(true)}>Edit</button>
             ) : (
               <>
-                <button onClick={handleSave}>Save All</button>
+                <button
+                  onClick={handleSave}
+                  disabled={loading}
+                  className={loading ? "disabled" : ""}
+                >
+                  {loading ? "Saving..." : "Save All"}
+                </button>
                 <button
                   onClick={() => {
                     setEditMode(false);

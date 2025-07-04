@@ -17,6 +17,7 @@ export function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,6 +35,8 @@ export function Register() {
 
     const user = { fullName, username, email, password };
 
+    setLoading(true); // Start spinner
+
     try {
       const checkRes = await axios.post(USER_CHECK_URI, { username, email });
       if (checkRes.data.exists) {
@@ -50,6 +53,8 @@ export function Register() {
     } catch (err) {
       console.error("API error:", err);
       setMessage("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false); // Stop spinner
     }
   }
 
@@ -121,8 +126,8 @@ export function Register() {
           <div>
             <input
               type="submit"
-              value="Register"
-              disabled={!password || password !== confirmPassword}
+              value={loading ? "Registering..." : "Register"}
+              disabled={!password || password !== confirmPassword || loading}
             />
           </div>
         </form>

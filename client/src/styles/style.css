@@ -100,6 +100,11 @@ body {
   background-color: #339af0;
 }
 
+button.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
   .dashboard-grid {
     grid-template-columns: 1fr; /* fallback to 1 column on small screens */

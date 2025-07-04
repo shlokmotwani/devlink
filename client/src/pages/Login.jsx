@@ -12,6 +12,7 @@ export function Login() {
   const [password, setPassword] = useState("");
 
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,11 +25,12 @@ export function Login() {
 
     const user = { usernameOREmail, password };
 
+    setLoading(true); // Start spinner
+
     try {
       const verifyRes = await axios.post(USER_LOGIN_URI, user);
 
       if (!verifyRes.data.verified) {
-        console.log("User NOT verified!");
         setMessage("User NOT verified!");
         return;
       }
@@ -39,6 +41,8 @@ export function Login() {
     } catch (err) {
       console.error("API error:", err);
       setMessage(err.response.data.error);
+    } finally {
+      setLoading(false); // Stop spinner
     }
   }
 
@@ -77,8 +81,8 @@ export function Login() {
           <div>
             <input
               type="submit"
-              value="Log In"
-              disabled={!usernameOREmail || !password}
+              value={loading ? "Logging in..." : "Log In"}
+              disabled={!usernameOREmail || !password || loading}
             />
           </div>
         </form>
