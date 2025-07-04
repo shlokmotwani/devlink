@@ -18,7 +18,7 @@ Built using **MERN stack** with **Prisma + PostgreSQL** for robust relational da
 
 ![User Profile](./client/assets/profile.png)
 
-### 🧑‍💻 Dashboard
+### 📊 Dashboard
 
 ![Dashboard](./client/assets/dashboard.png)
 
@@ -26,13 +26,13 @@ Built using **MERN stack** with **Prisma + PostgreSQL** for robust relational da
 
 ![Login](./client/assets/login.png)
 
-### 🧑‍💻 Registration Page
+### 📝 Registration Page
 
 ![Register](./client/assets/register.png)
 
-### 🧑‍💻 Logout Modal
+### 🚪 Logout Modal
 
-![Logout Modal](./client/assets/logout-modal.png)
+![Logout](./client/assets/logout-modal.png)
 
 ## 📚 Features
 
