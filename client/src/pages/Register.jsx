@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/style.css";
 import "../styles/components/form.css";
+import { validateToken } from "../services/tokenServices.js";
 
 const USER_CHECK_URI = import.meta.env.VITE_USER_CHECK_URI;
 const USER_REGISTER_URI = import.meta.env.VITE_USER_REGISTER_URI;
@@ -19,10 +20,8 @@ export function Register() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
-    if (token) {
-      navigate("/dashboard");
-    }
+    const calledFrom = "register";
+    validateToken(navigate, calledFrom);
   }, []);
 
   async function handleSubmit(event) {

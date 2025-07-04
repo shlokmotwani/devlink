@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
-const EXPIRES_IN = "2h";
+const EXPIRES_IN = "10000";
 
 export function generateToken(user) {
   try {

@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/components/logout-modal.css";
 import "../styles/components/view-only-banner.css";
 import "../styles/components/toast.css";
+import { validateToken } from "../services/tokenServices.js";
 
 const USER_DASHBOARD_URI = import.meta.env.VITE_USER_DASHBOARD_URI;
 const LOCAL_STORAGE_TOKEN_NAME = import.meta.env.VITE_LOCAL_STORAGE_TOKEN_NAME;
@@ -30,6 +31,8 @@ export function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    validateToken(navigate);
+
     async function fetchUserData() {
       const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
 

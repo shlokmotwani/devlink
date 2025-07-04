@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/components/form.css";
+import { validateToken } from "../services/tokenServices.js";
 
 const USER_LOGIN_URI = import.meta.env.VITE_USER_LOGIN_URI;
 const LOCAL_STORAGE_TOKEN_NAME = import.meta.env.VITE_LOCAL_STORAGE_TOKEN_NAME;
@@ -14,10 +15,8 @@ export function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
-    if (token) {
-      navigate("/dashboard");
-    }
+    const calledFrom = "login";
+    validateToken(navigate, calledFrom);
   }, []);
 
   async function handleSubmit(event) {
