@@ -42,7 +42,6 @@ async function getUser(usernameOREmail) {
 
 async function updateUser(username, data) {
   try {
-    console.log(data);
     const updatedUser = await prisma.user.update({
       where: {
         username,
