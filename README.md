@@ -8,10 +8,31 @@ Built using **MERN stack** with **Prisma + PostgreSQL** for robust relational da
 
 ## 📸 Demo (Coming Soon...)
 
-**Live URL:** [https://dev-link-app.netlify.app/login](https://dev-link-app.netlify.app/login)  
-_(Optional – Add screenshots or a Loom video walkthrough)_
+**Live URL:** [https://dev-link-app.netlify.app/login](https://dev-link-app.netlify.app/login)
 
 ---
+
+## 📸 Screenshots
+
+### 🧑‍💻 User Profile
+
+![User Profile](./client/assets/profile.png)
+
+### 🧑‍💻 Dashboard
+
+![Dashboard](./client/assets/dashboard.png)
+
+### 🔐 Login Page
+
+![Login](./client/assets/login.png)
+
+### 🧑‍💻 Registration Page
+
+![Register](./client/assets/register.png)
+
+### 🧑‍💻 Logout Modal
+
+![Logout Modal](./client/assets/logout-modal.png)
 
 ## 📚 Features
 
