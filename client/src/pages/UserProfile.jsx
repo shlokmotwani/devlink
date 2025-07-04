@@ -22,7 +22,6 @@ export function UserProfile() {
         const projectData = await axios.get(
           `${USER_PROJECTS_BASE_URI}/${data.id}`
         );
-        console.log(projectData.data);
         data.projects = projectData.data;
         setUser(data);
       } catch (err) {
