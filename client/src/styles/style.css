@@ -8,7 +8,6 @@
 
 /* ====== Body ====== */
 body {
-  background-color: #121212;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,14 +21,14 @@ body {
   max-width: 800px;
   margin: 2rem auto;
   padding: 1rem;
-  color: #f5f5f5;
+  /* color: #f5f5f5; */
 }
 
 .dashboard-container h1 {
   font-size: 2rem;
   margin-bottom: 1.5rem;
   text-align: center;
-  color: #ffffff;
+  /* color: #ffffff; */
 }
 
 /* Message styling */
@@ -46,7 +45,7 @@ body {
   right: 1.5rem;
   z-index: 1000;
   background-color: #ff4d4d;
-  color: #fff;
+  /* color: #fff; */
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 6px;
@@ -69,8 +68,8 @@ body {
 
 /* Each section like PersonalDetails, Skills, etc. */
 .dashboard-section {
-  border: 1px solid #333;
-  background-color: #1a1a1a;
+  /* border: 1px solid #333;
+  background-color: #1a1a1a; */
   padding: 1.5rem;
   border-radius: 10px;
   margin-bottom: 1.5rem;
@@ -87,7 +86,7 @@ body {
 
 .dashboard-buttons button {
   background-color: #4dabf7;
-  color: white;
+  /* color: white; */
   padding: 0.6rem 1.2rem;
   border: none;
   border-radius: 8px;
@@ -120,7 +119,7 @@ button.disabled {
 
 /* Optional: Section heading styling */
 .section-header h2 {
-  color: #f5f5f5;
+  /* color: #f5f5f5; */
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
 }
@@ -133,30 +132,30 @@ button.disabled {
 
 .form-group label {
   margin-bottom: 0.4rem;
-  color: #ccc;
+  /* color: #ccc; */
   font-size: 0.95rem;
   font-weight: 500;
 }
 
 .form-group input {
   padding: 0.6rem 0.8rem;
-  background-color: #2a2a2a;
-  border: 1px solid #444;
+  /* background-color: #2a2a2a;
+  border: 1px solid #444; */
   border-radius: 8px;
-  color: #f5f5f5;
+  /* color: #f5f5f5; */
   font-size: 1rem;
   transition: border-color 0.3s, background-color 0.3s;
 }
 
 .form-group input:focus {
-  border-color: #4dabf7;
+  /* border-color: #4dabf7; */
   outline: none;
-  background-color: #333;
+  /* background-color: #333; */
 }
 
 .form-group input:disabled {
-  background-color: #222;
-  color: #aaa;
+  /* background-color: #222; */
+  /* color: #aaa; */
   cursor: not-allowed;
 }
 
@@ -164,29 +163,35 @@ button.disabled {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: var(--modal-overlay-background-color);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .modal-content {
-  background-color: #1e1e1e;
+  background-color: var(--modal-content-background-color);
+  color: var(--modal-content-color);
   padding: 2rem;
   border-radius: 12px;
   width: 90%;
   max-width: 600px;
-  color: #f5f5f5;
+  /* color: #f5f5f5; */
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .modal-content input {
+  background-color: var(--modal-content-input-background-color);
+  color: var(--modal-content-input-color);
+  border: var(--modal-content-input-border);
   margin-bottom: 1rem;
-  background-color: #2a2a2a;
-  color: #fff;
+  /* background-color: #2a2a2a;
+  color: #fff; */
   padding: 0.6rem;
   border-radius: 6px;
-  border: 1px solid #444;
+  /* border: 1px solid #444; */
   width: 100%;
 }
 

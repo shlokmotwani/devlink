@@ -1,0 +1,110 @@
+.light-theme {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --dashboard-border: 1px solid #333;
+  --dashboard-background-color: #1a1a1a;
+  --section-header-color: #333;
+  --from-group-label-color: #2d2d2d;
+  --from-group-input-background-color: #c7c7c7;
+  --from-group-input-border: 1px solid #c7c7c7;
+  --from-group-input-focus-border-color: #1e1e1e;
+  --from-group-input-focus-background-color: #c7c7c7;
+  --from-group-input-color: #080808;
+  --form-group-input-disabled-background-color: #c7c7c7;
+  --form-group-input-disabled-color: #080808;
+  --modal-overlay-background-color: rgba(255, 255, 255, 0.7);
+  --modal-content-background-color: rgb(144, 144, 144);
+  --modal-content-color: #494949;
+  --modal-content-input-background-color: #b6b6b6;
+  --modal-content-input-color: #000000;
+  --modal-content-input-border: 1px solid #c6c6c6;
+  --modal-content-text-color: rgba(0, 0, 0, 0.8);
+  --project-card-background-color: #a2a2a2;
+}
+
+.dark-theme {
+  --bg-color: #121212;
+  --text-color: #f0f0f0;
+  --dashboard-border: 1px solid #c3c2c2;
+  --dashboard-background-color: #efefef;
+  --section-header-color: #f5f5f5;
+  --from-group-label-color: #ccc;
+  --from-group-input-background-color: #2a2a2a;
+  --from-group-input-border: 1px solid #444;
+  --from-group-input-focus-border-color: #4dabf7;
+  --from-group-input-focus-background-color: #4dabf7;
+  --from-group-input-color: #f5f5f5;
+  --form-group-input-disabled-background-color: #222;
+  --form-group-input-disabled-color: #aaa;
+  --modal-overlay-background-color: rgba(0, 0, 0, 0.7);
+  --modal-content-background-color: #1e1e1e;
+  --modal-content-color: #f5f5f5;
+  --modal-content-input-background-color: #2a2a2a;
+  --modal-content-input-color: #fff;
+  --modal-content-input-border: 1px solid #444;
+  --modal-content-text-color: #f5f5f5;
+  --project-card-background-color: #2a2a2a;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dashboard-container,
+.dashboard-container h1,
+.dashboard-buttons button,
+.logout-button {
+  color: var(--text-color);
+}
+
+.dashboard-section {
+  border: var(--dashboard-border);
+  background-color: var(--dashboard-border);
+}
+
+.section-header h2 {
+  color: var(--section-header-color);
+}
+
+.form-group label {
+  color: var(--from-group-label-color);
+}
+
+.form-group input {
+  background-color: var(--from-group-input-background-color);
+  border: var(--from-group-input-border);
+  color: var(--from-group-input-color);
+}
+
+.form-group input:focus {
+  border-color: var(--from-group-input-focus-border-color);
+  background-color: var(--from-group-input-focus-background-color);
+}
+
+.form-group input:disabled {
+  background-color: var(--form-group-input-disabled-background-color);
+  color: var(--form-group-input-disabled-color);
+}
+
+.form-group textarea {
+    background-color: var(--from-group-input-background-color);
+    border: var(--from-group-input-border);
+    color: var(--from-group-input-color);
+  }
+
+.modal-overlay {
+  background-color: var(--modal-overlay-background-color);
+}
+
+.modal-content {
+  background-color: var(--modal-content-background-color);
+  color: var(--modal-content-color);
+}
+
+.modal-content input {
+  background-color: var(--modal-content-input-background-color);
+  color: var(--modal-content-input-color);
+  border: var(--modal-content-input-border);
+}

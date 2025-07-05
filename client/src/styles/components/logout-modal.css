@@ -13,14 +13,18 @@
   }
   
   .modal-content {
-    background: #1e1e1e;
-    color: #fff;
+    background: var(--modal-content-background-color);
+    color: var(--modal-content-color);
     padding: 2rem;
     border-radius: 12px;
     text-align: center;
     width: 90%;
     max-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  }
+
+  .modal-content p{
+    color: var(--modal-content-text-color);
   }
   
   .modal-actions {

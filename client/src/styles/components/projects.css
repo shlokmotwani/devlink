@@ -6,12 +6,13 @@
 }
 
 .project-card {
-  background-color: #2a2a2a;
+  background-color: var(--project-card-background-color);
+  color: var(--text-color);
   border: 1px solid #444;
   padding: 1rem;
   border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .project-card:hover {
