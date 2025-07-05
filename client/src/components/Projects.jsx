@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "../styles/components/projects.css";
-import "../styles/themes.css";
 
 export function Projects({ projects, setProjects, editMode }) {
   const [addMode, setAddMode] = useState(false);
