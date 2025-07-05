@@ -19,7 +19,9 @@
   --modal-content-input-color: #000000;
   --modal-content-input-border: 1px solid #c6c6c6;
   --modal-content-text-color: rgba(0, 0, 0, 0.8);
-  --project-card-background-color: #a2a2a2;
+  --project-card-background-color: #c7c7c7;
+  --project-card-heading-color: #474747;
+  --project-card-text-color: #2d2d2d;
 }
 
 .dark-theme {
@@ -44,6 +46,8 @@
   --modal-content-input-border: 1px solid #444;
   --modal-content-text-color: #f5f5f5;
   --project-card-background-color: #2a2a2a;
+  --project-card-heading-color: #ccc;
+  --project-card-text-color: #fff;
 }
 
 body {
