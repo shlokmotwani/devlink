@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import "./App.css";
 import "./styles/themes.css";
+import "./styles/components/theme-toggle.css";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -20,16 +21,19 @@ function App() {
   return (
     <div>
       <div className="theme-toggle-container">
-        <label className="theme-switch">
+        <label className="switch">
           <input
             type="checkbox"
             checked={theme === "dark"}
             onChange={toggleTheme}
           />
-          <span className="slider" />
+          <span className="slider"></span>
         </label>
-        <span>{theme === "light" ? "☀️ Light" : "🌙 Dark"}</span>
+        <span className="theme-label">
+          {theme === "light" ? "☀️ Light" : "🌙 Dark"}
+        </span>
       </div>
+
       <h1>DevLink</h1>
       <Outlet />
     </div>
