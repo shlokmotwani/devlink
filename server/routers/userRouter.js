@@ -4,7 +4,7 @@ const { authenticateToken } = require("../middlewares/authenticateToken");
 const userRouter = express.Router();
 
 userRouter.get("/:username", async (req, res) => {
-  const username = req.params.username;
+  const username = req.params.username.toLowerCase();
   try {
     const user = await getUser(username);
     const updatedUser = { ...user };

@@ -84,7 +84,7 @@ export function Register() {
               id="username"
               name="username"
               placeholder="Choose a username"
-              onChange={(event) => setUsername(event.target.value)}
+              onChange={(event) => setUsername(event.target.value.toLowerCase())}
               required
             />
           </div>
@@ -95,7 +95,7 @@ export function Register() {
               id="email"
               name="email"
               placeholder="robinsharma@5amclub.in"
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event) => setEmail(event.target.value.toLowerCase())}
               required
             />
           </div>
