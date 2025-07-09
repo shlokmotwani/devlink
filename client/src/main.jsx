@@ -6,13 +6,18 @@ import App from "./App.jsx";
 import { Register } from "./pages/Register.jsx";
 import { Login } from "./pages/Login.jsx";
 import { Dashboard } from "./pages/Dashboard.jsx";
-import { UserProfile } from "./pages/UserProfile";
+import { UserProfile } from "./pages/UserProfile.jsx";
+import { Home } from "./pages/Home.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "",
+        element: <Home />,
+      },
       {
         path: "/:username",
         element: <UserProfile />,

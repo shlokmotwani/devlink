@@ -6,6 +6,18 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
   width: 100%;
   max-width: 450px;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ====== Only for Register.jsx Container ====== */

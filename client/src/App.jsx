@@ -33,8 +33,6 @@ function App() {
           {theme === "light" ? "☀️ Light" : "🌙 Dark"}
         </span>
       </div>
-
-      <h1>DevLink</h1>
       <Outlet />
     </div>
   );
