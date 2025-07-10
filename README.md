@@ -8,7 +8,7 @@ Built using **MERN stack** with **Prisma + PostgreSQL** for robust relational da
 
 ## 📸 Demo (Coming Soon...)
 
-**Live URL:** [https://dev-link-app.netlify.app/login](https://dev-link-app.netlify.app/login)
+**Live URL:** [https://dev-link-app.netlify.app/](https://dev-link-app.netlify.app/)
 
 ---
 

@@ -7,7 +7,6 @@ import { validateToken } from "../services/tokenServices.js";
 
 const USER_CHECK_URI = import.meta.env.VITE_USER_CHECK_URI;
 const USER_REGISTER_URI = import.meta.env.VITE_USER_REGISTER_URI;
-const LOCAL_STORAGE_TOKEN_NAME = import.meta.env.VITE_LOCAL_STORAGE_TOKEN_NAME;
 
 export function Register() {
   const [fullName, setFullName] = useState("");
