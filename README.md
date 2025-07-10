@@ -90,4 +90,4 @@ MIT
 
 ## ✨ Author
 
-Made with ❤️ by Shlok Motwani
+☕ Shlok Motwani
